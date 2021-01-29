@@ -1,6 +1,32 @@
-var say = document.getElementById('say');
-var text = '';
+var score = 0;
+var myTime= new Date()
+var myStartingTime=myTime.getTime();
+console.log(myStartingTime);
+var scoreValue = document.getElementById('score');
+scoreValue.innerHTML=score;
 
+
+// scoreValue.style.width="140px";
+// scoreValue.style.height="88px";
+// scoreValue.style.backgroundColor="lightgreen";
+// scoreValue.style.textAlign="center";
+// scoreValue.style.fontSize="66px";
+//////////////////
+function calcTime(){
+    let currentTime=new Date()
+
+    let int =currentTime.getTime()-myStartingTime;
+    let mySpeed=Math.round((score/int)*10000000)
+    let a = document.getElementById('MySpeed');
+    a.innerHTML=mySpeed;
+    return mySpeed;
+}
+
+///////////////////
+function viewScore(){
+
+document.getElementById('score').innerHTML=score;
+}
 var canvas = document.getElementById('myCanvas').getContext("2d");
 var stopSnakeAuto = true;
 var circle = document.getElementById("StopAuto");
@@ -104,63 +130,37 @@ function createApple() {
 
 function catchApple() {
     let coor = snake.position[snake.position.length - 1];
-    console.log(coor.hor, 'coor.hor', coor.ver, 'coor.ver', a, b);
     // snake.direction='non';
     let p = coor.hor;
     let q = coor.ver;
-    if ((p > a && p < a + 10) && (q> b && q < b + 10)) {
-
-        console.log('catched');
-        canvas.clearRect(a, b, 10, 10);
-        createApple();
-        addToSnake();
-        return true;
-
-    } else {
-        canvas.fillStyle = 'red';
-        canvas.fillRect(a, b, 10, 10);
-    }
+   
+    if(catchHlp(p,q)){score++;viewScore();calcTime();return true}
     p += 10;
-    if ((p > a && p < a + 10) && (q > b && q < b+ 10)) {
-
-        console.log('catched');
-        canvas.clearRect(a, b, 10, 10);
-        createApple();
-        addToSnake();
-        return true;
-
-    } else {
-        canvas.fillStyle = 'red';
-        canvas.fillRect(a, b, 10, 10);
-    }
+    if(catchHlp(p,q)){score++;viewScore();calcTime();return true}
     q += 10;
-    if ((p > a && p < a + 10) && (q > b && q < b + 10)) {
-
-        console.log('catched');
-        canvas.clearRect(a, b, 10, 10);
-        createApple();
-        addToSnake();
-        return true;
-
-    } else {
-        canvas.fillStyle = 'red';
-        canvas.fillRect(a, b, 10, 10);
-    }
+    if(catchHlp(p,q)){score++;viewScore();calcTime();return true}
+     
     p -= 10;
-    if ((p > a && p < a + 10) && (q > b && q < b + 10)) {
+    if(catchHlp(p,q)){score++;viewScore();calcTime();return true}
 
-        console.log('catched');
-        canvas.clearRect(a, b, 10, 10);
-        createApple();
-        addToSnake();
-        return true;
-
-    } else {
-        canvas.fillStyle = 'red';
-        canvas.fillRect(a, b, 10, 10);
-    }
     return false;
 
+}
+///////////////////////
+function catchHlp(p,q){
+    if ((p >= a && p <= a + 10) && (q >= b && q <= b + 10)) {
+
+        console.log('catched');
+        canvas.clearRect(a, b, 10, 10);
+        createApple();
+        addToSnake();
+        return true;
+
+    } else {
+        canvas.fillStyle = 'red';
+        canvas.fillRect(a, b, 10, 10);
+    }
+    return false ;
 }
 ////////////////
 function showfirstSqr(a, b, color = '',text='') {
@@ -196,6 +196,9 @@ function moveRight() {
     if (snake.direction == "left" || snake.direction == "up" || snake.direction == "down") return true;
     let path = snake.position[snake.position.length - 1];
     let newX = path.hor + step;
+    if(newX>300){
+        newX = 0;
+    }
     let newY = path.ver;
     let newPath = { hor: newX, ver: newY };
     snake.position.push(newPath);
@@ -229,6 +232,9 @@ function moveLeft() {
     if (snake.direction == "right" || snake.direction == "up" || snake.direction == "down") return true;
     let path = snake.position[snake.position.length - 1];
     let newX = path.hor - step;
+    if(newX < 0 ){
+        newX = 300;
+    }
     let newY = path.ver;
     let newPath = { hor: newX, ver: newY };
     snake.position.push(newPath);
@@ -263,6 +269,9 @@ function moveUp() {
     let path = snake.position[snake.position.length - 1];
     let newX = path.hor;
     let newY = path.ver - step;
+    if(newY < 0 ){
+        newY = 140 ;
+    }
     let newPath = { hor: newX, ver: newY };
     snake.position.push(newPath);
 
@@ -295,6 +304,9 @@ function moveDown() {
     let path = snake.position[snake.position.length - 1];
     let newX = path.hor;
     let newY = path.ver + step;
+    if( newY > 140){
+        newY = 0;
+    }
     let newPath = { hor: newX, ver: newY };
     snake.position.push(newPath);
 
