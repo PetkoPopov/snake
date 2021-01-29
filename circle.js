@@ -6,13 +6,13 @@ var stopSnakeAuto = true;
 var circle = document.getElementById("StopAuto");
 
 circle.addEventListener('click', () => {
-    if (circle.textContent == "StopAuto") {
+    if (circle.textContent == "StopAuto/Pause") {
 
         stopSnakeAuto = false;
-        circle.textContent = "StartAuto";
+        circle.textContent = "StartAuto/Game";
     } else {
         stopSnakeAuto = true;
-        circle.textContent = "StopAuto";
+        circle.textContent = "StopAuto/Pause";
     }
 })
 
@@ -94,6 +94,8 @@ function createApple() {
 
     canvas.fillStyle = "#446599";
     var sqr = canvas.fillRect(a, b, 10, 10);
+    // let simbol = "<a>&#9752;</a>"
+    // canvas.fillText(simbol,100,100);
     return sqr;
 }
 
@@ -161,7 +163,7 @@ function catchApple() {
 
 }
 ////////////////
-function showfirstSqr(a, b, color = '') {
+function showfirstSqr(a, b, color = '',text='') {
 
     if (color == '') {
 
@@ -198,7 +200,7 @@ function moveRight() {
     let newPath = { hor: newX, ver: newY };
     snake.position.push(newPath);
 
-    showfirstSqr(newX, newY, 'olive');//    показваме новата кутия
+    showfirstSqr(newX, newY, '#355');//    показваме новата кутия
 
     // махаме последна кутийка
     let eraseLast = snake.position[0]
