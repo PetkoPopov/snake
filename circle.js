@@ -3,20 +3,21 @@ var text = '';
 
 var canvas = document.getElementById('myCanvas').getContext("2d");
 var stopSnakeAuto = true;
-var circle = document.getElementById('Move');
-circle.addEventListener('click', () => {
-   if(circle.textContent == "StopAuto"){ 
+var circle = document.getElementById("StopAuto");
 
-    stopSnakeAuto = false;
-   circle.textContent="StartAuto";
-}else{
-    stopSnakeAuto=true;
-circle.textContent="StopAuto";
-}
+circle.addEventListener('click', () => {
+    if (circle.textContent == "StopAuto") {
+
+        stopSnakeAuto = false;
+        circle.textContent = "StartAuto";
+    } else {
+        stopSnakeAuto = true;
+        circle.textContent = "StopAuto";
+    }
 })
 
 canvas.fillStyle = "olive";
-var buttonStop = document.getElementById("Stop");
+var buttonStop = document.getElementById("StartGame");
 buttonStop.addEventListener('click', () => {
     // for(let i=0 ;i<1000;i++){
     moveSqr();
@@ -29,7 +30,7 @@ buttonStop.addEventListener('click', () => {
     }
 
 });
-var step=1;
+var step = 1;
 var a = 10;
 var b = 10;
 var speed = 1200;
@@ -61,31 +62,29 @@ function moveSqr() {
         canvas.fillStyle = "#45";
 
         if (aa.key == "ArrowLeft") {
+            // while(aa.key == "ArroeLeft"){
+
             snake.direction = 'left';
             moveLeft();
-        } else if (aa.key == "ArrowRight") {
-            // изчисляваме пътя
+        }
+        // } 
+        if (aa.key == "ArrowRight") {
+
+
             snake.direction = 'right'
             moveRight();
 
-        } else if (aa.key == "ArrowUp") {
+        }
+        if (aa.key == "ArrowUp") {
             snake.direction = 'up';
             moveUp();
-        } else if (aa.key == "ArrowDown") {
+        }
+        if (aa.key == "ArrowDown") {
             snake.direction = 'down';
             moveDown();
         }
 
-        // console.log(i, j, a, b);
-        // if (catchApple()) {
-
-        //     // console.log("catched");
-        //     // createApple();
-
-        // }
-
-
-
+        catchApple();
     })
 }
 
@@ -105,24 +104,72 @@ function catchApple() {
     let coor = snake.position[snake.position.length - 1];
     console.log(coor.hor, 'coor.hor', coor.ver, 'coor.ver', a, b);
     // snake.direction='non';
-
-    if ((coor.hor > a && coor.hor < a + 10) && (b > coor.ver && b < coor.ver + 10)) {
+    let p = coor.hor;
+    let q = coor.ver;
+    if ((p > a && p < a + 10) && (q> b && q < b + 10)) {
 
         console.log('catched');
-        canvas.clearRect(a,b,10,10);
+        canvas.clearRect(a, b, 10, 10);
         createApple();
+        addToSnake();
         return true;
 
-    }else{
-        canvas.fillStyle='red';
-        canvas.fillRect(a,b,10,10);
+    } else {
+        canvas.fillStyle = 'red';
+        canvas.fillRect(a, b, 10, 10);
+    }
+    p += 10;
+    if ((p > a && p < a + 10) && (q > b && q < b+ 10)) {
+
+        console.log('catched');
+        canvas.clearRect(a, b, 10, 10);
+        createApple();
+        addToSnake();
+        return true;
+
+    } else {
+        canvas.fillStyle = 'red';
+        canvas.fillRect(a, b, 10, 10);
+    }
+    q += 10;
+    if ((p > a && p < a + 10) && (q > b && q < b + 10)) {
+
+        console.log('catched');
+        canvas.clearRect(a, b, 10, 10);
+        createApple();
+        addToSnake();
+        return true;
+
+    } else {
+        canvas.fillStyle = 'red';
+        canvas.fillRect(a, b, 10, 10);
+    }
+    p -= 10;
+    if ((p > a && p < a + 10) && (q > b && q < b + 10)) {
+
+        console.log('catched');
+        canvas.clearRect(a, b, 10, 10);
+        createApple();
+        addToSnake();
+        return true;
+
+    } else {
+        canvas.fillStyle = 'red';
+        canvas.fillRect(a, b, 10, 10);
     }
     return false;
 
 }
 ////////////////
-function showfirstSqr(a, b) {
-    canvas.fillStyle = "#199";
+function showfirstSqr(a, b, color = '') {
+
+    if (color == '') {
+
+        canvas.fillStyle = "#199";
+    } else {
+        canvas.fillStyle = color;
+    }
+
     canvas.fillRect(a, b, 10, 10);
 }
 ///////////////////
@@ -151,7 +198,7 @@ function moveRight() {
     let newPath = { hor: newX, ver: newY };
     snake.position.push(newPath);
 
-    showfirstSqr(newX, newY);//    показваме новата кутия
+    showfirstSqr(newX, newY, 'olive');//    показваме новата кутия
 
     // махаме последна кутийка
     let eraseLast = snake.position[0]
@@ -184,7 +231,7 @@ function moveLeft() {
     let newPath = { hor: newX, ver: newY };
     snake.position.push(newPath);
 
-    showfirstSqr(newX, newY);//    показваме новата кутия
+    showfirstSqr(newX, newY, 'olive');//    показваме новата кутия
 
     // махаме последна кутийка
     let eraseLast = snake.position[0]
@@ -217,7 +264,7 @@ function moveUp() {
     let newPath = { hor: newX, ver: newY };
     snake.position.push(newPath);
 
-    showfirstSqr(newX, newY);//    показваме новата кутия
+    showfirstSqr(newX, newY, "olive");//    показваме новата кутия
 
     // махаме последна кутийка
     let eraseLast = snake.position[0]
@@ -249,7 +296,7 @@ function moveDown() {
     let newPath = { hor: newX, ver: newY };
     snake.position.push(newPath);
 
-    showfirstSqr(newX, newY);//    показваме новата кутия
+    showfirstSqr(newX, newY, 'olive');//    показваме новата кутия
 
     // махаме последна кутийка
     let eraseLast = snake.position[0]
@@ -270,6 +317,24 @@ function moveDownHelp() {
 
     }, speed)
 }
+///////////////////////////
+///////////////////////
+function addToSnake() {
+
+    let coor = snake.position[0]
+    let add = { hor: "", ver: "" }
+    add.hor = coor.hor--;
+    add.ver = coor.ver;
+    snake.position.unshift(add);
+}
+
+
+
+
+
+
+
+
 
 
 
