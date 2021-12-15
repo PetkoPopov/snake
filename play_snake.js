@@ -5,13 +5,6 @@ console.log(myStartingTime);
 var scoreValue = document.getElementById('score');
 scoreValue.innerHTML=score;
 
-
-// scoreValue.style.width="140px";
-// scoreValue.style.height="88px";
-// scoreValue.style.backgroundColor="lightgreen";
-// scoreValue.style.textAlign="center";
-// scoreValue.style.fontSize="66px";
-//////////////////
 function calcTime(){
     let currentTime=new Date()
 
@@ -56,7 +49,7 @@ buttonStop.addEventListener('click', () => {
     }
 
 });
-var step = 1;
+var step = 10;
 var a = 10;
 var b = 10;
 var speed = 1200;
@@ -76,7 +69,12 @@ var snake = {
         ],
     direction: "right"
 }
+var arrowKeyLeft=true
+var arrowKeyRight=true
+var arrowKeyUp = true
+var arrowKeyDown = true
 
+ var reduceSpeed;
 /////////////////////////////////
 ///////////////////////
 function moveSqr() {
@@ -84,28 +82,48 @@ function moveSqr() {
     createApple();
     showSnake();
 
+    
+
+window.addEventListener('keyup',function(btn){
+    if(btn.key =="ArrowLeft"){
+        arrowKeyLeft=false
+    }
+    if(btn.key =="ArrowRight"){
+        arrowKeyRight=false
+    }
+    if(btn.key =="ArrowUp"){
+        arrowKeyUp=false
+    }
+    if(btn.key =="ArrowDown"){
+        arrowKeyDown=false
+    }
+    // console.log(arrowKeyDown,arrowKeyLeft,arrowKeyRight,arrowKeyUp)
+})
+
+// console.log(arrowKeyDown,arrowKeyLeft,arrowKeyRight,arrowKeyUp)
     window.addEventListener('keydown', (aa) => {
         canvas.fillStyle = "#45";
 
-        if (aa.key == "ArrowLeft") {
-            // while(aa.key == "ArroeLeft"){
-
+        if (aa.key == "ArrowLeft" || arrowKeyLeft ) {
+           arrowKeyLeft=true
             snake.direction = 'left';
-            moveLeft();
+                            moveLeft();
+            
         }
-        // } 
-        if (aa.key == "ArrowRight") {
-
+        if (aa.key == "ArrowRight" || arrowKeyRight) {
+            arrowKeyRight=true
 
             snake.direction = 'right'
             moveRight();
 
         }
-        if (aa.key == "ArrowUp") {
+        if (aa.key == "ArrowUp" || arrowKeyUp ) {
+            arrowKeyUp=true
             snake.direction = 'up';
             moveUp();
         }
-        if (aa.key == "ArrowDown") {
+        if (aa.key == "ArrowDown" || arrowKeyDown) {
+            arrowKeyDown=true
             snake.direction = 'down';
             moveDown();
         }
@@ -218,10 +236,11 @@ function moveRight() {
 function moveRightHelp() {
 
 
-    setTimeout(function () {
+   setTimeout(function () {
 
         moveRight();
     }, speed)
+
 }
 
 
