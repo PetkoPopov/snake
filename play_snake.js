@@ -74,14 +74,14 @@ var arrowKeyRight=true
 var arrowKeyUp = true
 var arrowKeyDown = true
 
- var reduceSpeed;
+
 /////////////////////////////////
 ///////////////////////
 function moveSqr() {
 
     createApple();
     showSnake();
-
+}
     
 
 window.addEventListener('keyup',function(btn){
@@ -130,7 +130,7 @@ window.addEventListener('keyup',function(btn){
 
         catchApple();
     })
-}
+
 
 function createApple() {
     a = Math.floor(Math.random() * 300);
