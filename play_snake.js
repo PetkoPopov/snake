@@ -90,16 +90,14 @@ function moveSqr() {
 window.addEventListener('keyup',function(btn){
     if(btn.key =="ArrowLeft"){
         arrowKeyLeft=false
-        
-   
+    
     }
     if(btn.key =="ArrowRight"){
         arrowKeyRight=false
     }
     if(btn.key =="ArrowUp"){
         arrowKeyUp=false
-        
-      
+    
     }
     if(btn.key =="ArrowDown"){
         arrowKeyDown=false
@@ -115,14 +113,13 @@ window.addEventListener('keyup',function(btn){
         if (aa.key == "ArrowLeft" || arrowKeyLeft ) {
            arrowKeyLeft=true
             snake.direction = 'left';
-            clearInterval(reduceSpeedLeft)
-                            moveLeft();
-            
+            moveLeft()
         }
+            
         if (aa.key == "ArrowRight" || arrowKeyRight) {
             arrowKeyRight=true
            
-           clearInterval(reduceSpeedRight)  
+        //    clearInterval(reduceSpeedRight)  
             snake.direction = 'right'
             moveRight();
 
@@ -130,14 +127,14 @@ window.addEventListener('keyup',function(btn){
         if (aa.key == "ArrowUp" || arrowKeyUp ) {
             arrowKeyUp=true
             snake.direction = 'up';
-            clearInterval(reduceSpeedUp)
+            // clearInterval(reduceSpeedUp)
             moveUp();
         }
         if (aa.key == "ArrowDown" || arrowKeyDown) {
             arrowKeyDown=true
             snake.direction = 'down';
         
-      clearInterval(reduceSpeedDown)
+    //   clearInterval(reduceSpeedDown)
             moveDown();
         }
 
@@ -223,9 +220,7 @@ function showSnake() {
 /////////////////////
 function moveRight() {
 
-    reduceSpeedRight = setInterval(
-    function(){
-    if (snake.direction == "left" || snake.direction == "up" || snake.direction == "down") return true;
+    
     let path = snake.position[snake.position.length - 1];
     let newX = path.hor + step;
     if(newX>300){
@@ -242,7 +237,6 @@ function moveRight() {
     clearLastSqr(eraseLast.hor, eraseLast.ver);
     snake.position.splice(0, 1);
     showSnake();
-},speed)
 
 }
 
@@ -250,7 +244,6 @@ function moveRight() {
 /////////////////////
 function moveLeft() {
     reduceSpeedLeft= setInterval(function(){
-    if (snake.direction == "right" || snake.direction == "up" || snake.direction == "down") return true;
     let path = snake.position[snake.position.length - 1];
     let newX = path.hor - step;
     if(newX < 0 ){
@@ -274,7 +267,6 @@ function moveLeft() {
 function moveUp() {
 reduceSpeedUp = setInterval(function(){
 
-    if (snake.direction == "left" || snake.direction == "down" || snake.direction == "right") return true;
     let path = snake.position[snake.position.length - 1];
     let newX = path.hor;
     let newY = path.ver - step;
@@ -297,7 +289,6 @@ reduceSpeedUp = setInterval(function(){
 function moveDown() {
 reduceSpeedDown = setInterval(function(){
 
-    if (snake.direction == "left" || snake.direction == "up" || snake.direction == "right") return true;
     let path = snake.position[snake.position.length - 1];
     let newX = path.hor;
     let newY = path.ver + step;
