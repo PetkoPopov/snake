@@ -22,16 +22,16 @@ document.getElementById('score').innerHTML=score;
 }
 var canvas = document.getElementById('myCanvas').getContext("2d");
 var stopSnakeAuto = true;
-var circle = document.getElementById("StopAuto");
+var stopAutoBtn = document.getElementById("StopAuto");
 
-circle.addEventListener('click', () => {
-    if (circle.textContent == "StopAuto/Pause") {
+stopAutoBtn.addEventListener('click', () => {
+    if (stopAutoBtn.textContent == "StopAuto/Pause") {
 
         stopSnakeAuto = false;
-        circle.textContent = "StartAuto/Game";
+        stopAutoBtn.textContent = "StartAuto/Game";
     } else {
         stopSnakeAuto = true;
-        circle.textContent = "StopAuto/Pause";
+        stopAutoBtn.textContent = "StopAuto/Pause";
     }
 })
 
@@ -49,6 +49,9 @@ buttonStop.addEventListener('click', () => {
     }
 
 });
+
+//////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
 var step = 10;
 var a = 10;
 var b = 10;
@@ -69,15 +72,17 @@ var snake = {
         ],
     direction: "right"
 }
+
+
 var arrowKeyLeft=true
 var arrowKeyRight=true
 var arrowKeyUp = true
 var arrowKeyDown = true
 
-const reduceSpeedRight
-const reduceSpeedLeft
-const reduceSpeedUp
-const reduceSpeedDown
+// const reduceSpeedRight
+// const reduceSpeedLeft
+// const reduceSpeedUp
+// const reduceSpeedDown
 /////////////////////////////////
 ///////////////////////
 function moveSqr() {
@@ -86,6 +91,7 @@ function moveSqr() {
     showSnake();
 
     
+}
 
 window.addEventListener('keyup',function(btn){
     if(btn.key =="ArrowLeft"){
@@ -139,8 +145,9 @@ window.addEventListener('keyup',function(btn){
         }
 
         catchApple();
-    })
-}
+    }
+    )
+
 
 function createApple() {
     a = Math.floor(Math.random() * 300);
@@ -205,13 +212,11 @@ function showfirstSqr(a, b, color = '',text='') {
 ///////////////////
 function clearLastSqr(lastA, lastB) {
     canvas.clearRect(lastA, lastB, 10, 10);
-
 }
 //////////////////////////////
 
 function showSnake() {
-    // console.log(i,j,a,b);
-
+    
     for (x of snake.position) {
         showfirstSqr(x.hor, x.ver);
     }
@@ -239,11 +244,9 @@ function moveRight() {
     showSnake();
 
 }
-
-
 /////////////////////
 function moveLeft() {
-    reduceSpeedLeft= setInterval(function(){
+    
     let path = snake.position[snake.position.length - 1];
     let newX = path.hor - step;
     if(newX < 0 ){
@@ -260,12 +263,10 @@ function moveLeft() {
     clearLastSqr(eraseLast.hor, eraseLast.ver);
     snake.position.splice(0, 1);
     showSnake();
-},speed)
-}
 
+}
 /////////////////////
 function moveUp() {
-reduceSpeedUp = setInterval(function(){
 
     let path = snake.position[snake.position.length - 1];
     let newX = path.hor;
@@ -283,11 +284,10 @@ reduceSpeedUp = setInterval(function(){
     clearLastSqr(eraseLast.hor, eraseLast.ver);
     snake.position.splice(0, 1);
     showSnake();
-},speed)
+
 }
 /////////////////////
 function moveDown() {
-reduceSpeedDown = setInterval(function(){
 
     let path = snake.position[snake.position.length - 1];
     let newX = path.hor;
@@ -306,7 +306,7 @@ reduceSpeedDown = setInterval(function(){
     snake.position.splice(0, 1);
     showSnake();
     
-},speed)
+
 }
 ///////////////////////////
 ///////////////////////
